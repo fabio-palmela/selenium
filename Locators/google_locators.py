@@ -1,23 +1,24 @@
-import time
 from selenium import webdriver
 from selenium.webdriver.common.by import By
-from selenium.webdriver.common.keys import Keys
+import unittest
+import time
 
+class TestGoogleSearch(unittest.TestCase):
+    def setUp(self):
+        self.driver = webdriver.Chrome()
+        self.driver.maximize_window()
+        self.driver.get("https://www.google.com/")
+    
+    def test_search(self):
+        search_input = self.driver.find_element(By.NAME, "q")
+        search_input.send_keys("python selenium")
+        search_input.submit()
+        assert "python selenium" in self.driver.title
+        time.sleep(5) # pausa a execução por 5 segundos
 
-browser = webdriver.Chrome()
-# Get: Acessa a página
-browser.get('https://google.com')
+    
+    def tearDown(self):
+        self.driver.quit()
 
-# Maximize Window: Máximiza a tela
-browser.maximize_window();
-
-# Refresh: Atualiza Browser
-time.sleep(1)
-
-browser.find_elements(By.XPATH, "//*[contains(a, 'login')]")
-# //*[contains(a, 'login')])
-# browser.find_element_by_id(" ?? ").click()
-#browser.find_elements_by_xpath("//*[contains(a, 'login')]")
-# //*[contains(a, 'login')]
-
-time.sleep(2)
+if __name__ == '__main__':
+    unittest.main()

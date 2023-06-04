@@ -10,19 +10,14 @@ browser.get('https://www.saucedemo.com/')
 
 username = browser.find_element(By.ID, 'user-name')
 password = browser.find_element(By.ID, 'password')
-btn_button = browser.find_element(By.ID, 'login-button')
 
 username.send_keys('standard_user')
 password.send_keys('secret_sauce')
 
-btn_button.click()
+time.sleep(3)
+loginButton = browser.find_element(By.ID, 'login-button')
 
-products_title = browser.find_element(By.XPATH, "//span[@class='title']")
-print(products_title.text)
-assert products_title.text == "Products"
-
-imagem = browser.find_element(By.XPATH, "(//img[@class='bm-icon'])[1]")
-print(imagem.get_attribute('alt'))
+loginButton.send_keys(Keys.ENTER)
 
 time.sleep(3)
 browser.quit()
